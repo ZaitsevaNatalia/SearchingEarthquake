@@ -2,6 +2,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 //import edu.duke.*;
 
@@ -28,7 +29,7 @@ public class EarthQuakeClient
         //System.out.println("# quakes = "+list.size());
 
         //ArrayList<QuakeEntry> myList = client.filterByDistanceFrom(list, 20000.0, kiev);
-        client.closeToMe();
+        client.quakesByPhrase();
 
         /*for(QuakeEntry loc: list)
         {
@@ -63,6 +64,88 @@ public class EarthQuakeClient
         }
 
         return answer;
+    }
+
+    public ArrayList<QuakeEntry> filterByDepth(ArrayList<QuakeEntry> quakeData, double minDepth, double maxDepth)
+    {
+        ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
+
+        for (QuakeEntry element: quakeData)
+        {
+            if (element.getDepth() > minDepth && element.getDepth() < maxDepth)
+                answer.add(element);
+        }
+
+        return answer;
+    }
+
+    public void quakesOfDepth()
+    {
+        EarthQuakeParser parser = new EarthQuakeParser();
+        String sourse = "data/nov20quakedatasmall.atom";
+        ArrayList<QuakeEntry> list = parser.read(sourse);
+
+        System.out.println("read data for " +list.size() + " quakes ");
+
+        ArrayList<QuakeEntry> answer = filterByDepth(list, -10000, -5000);
+
+        if (answer.size() > 0)
+            System.out.println("Find quakes with depth between -10000.0 and -5000.0");
+        else
+            System.out.println("Don't find quakes with depth between -10000.0 and -5000.0");
+
+        for (QuakeEntry element: answer)
+            System.out.println(element);
+
+        if (answer.size() > 0)
+            System.out.println("Found " + answer.size() + " quakes that match that criteria");
+    }
+
+    public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, String where, String phrase)
+    {
+        ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
+
+        for (QuakeEntry element : quakeData)
+        {
+            String title = element.getInfo();
+
+            if (title.contains(phrase))
+            {
+                switch (where)
+                {
+                    case "start":
+                        if (title.startsWith(phrase))
+                            answer.add(element);
+                        break;
+                    case "end":
+                        if (title.endsWith(phrase))
+                            answer.add(element);
+                        break;
+                    case "any":
+                        answer.add(element);
+                        break;
+                }
+            }
+        }
+
+        return answer;
+    }
+
+    public void quakesByPhrase()
+    {
+        EarthQuakeParser parser = new EarthQuakeParser();
+        String source = "data/nov20quakedatasmall.atom";
+        ArrayList<QuakeEntry> list  = parser.read(source);
+        System.out.println("read data for "+list.size()+" quakes");
+
+        String where = "any";
+        ArrayList<QuakeEntry> quakes = filterByPhrase(list, where, "Mojave");
+        for (QuakeEntry element : quakes)
+            System.out.println(element);
+
+        if (quakes.size() > 0)
+            System.out.println("Found " + quakes.size() + " quakes that match California at " + where);
+
     }
 
     public void dumpCSV(ArrayList<QuakeEntry> list){
