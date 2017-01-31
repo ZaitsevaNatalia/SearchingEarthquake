@@ -8,6 +8,16 @@ import java.util.*;
 
 public class EarthQuakeClient
 {
+    private static double minDepth = -10000;
+    private static double maxDepth = -5000;
+    private static String where = "start";
+    private static String phrase = "Explosion";
+    private static double magnitudeMin = 5;
+    private static double latitude = 38.17;
+    private static double longitude = -118.82;
+    private static double distMax = 1000000;
+
+
     public EarthQuakeClient() {
         // TODO Auto-generated constructor stub
     }
@@ -87,12 +97,12 @@ public class EarthQuakeClient
 
         System.out.println("read data for " +list.size() + " quakes ");
 
-        ArrayList<QuakeEntry> answer = filterByDepth(list, -10000, -5000);
+        ArrayList<QuakeEntry> answer = filterByDepth(list, minDepth, maxDepth);
 
         if (answer.size() > 0)
-            System.out.println("Find quakes with depth between -10000.0 and -5000.0");
+            System.out.println("Find quakes with depth between " + minDepth + " and " + maxDepth);
         else
-            System.out.println("Don't find quakes with depth between -10000.0 and -5000.0");
+            System.out.println("Don't find quakes with depth between " + minDepth + " and " + maxDepth);
 
         for (QuakeEntry element: answer)
             System.out.println(element);
@@ -138,13 +148,12 @@ public class EarthQuakeClient
         ArrayList<QuakeEntry> list  = parser.read(source);
         System.out.println("read data for "+list.size()+" quakes");
 
-        String where = "any";
-        ArrayList<QuakeEntry> quakes = filterByPhrase(list, where, "Mojave");
+        ArrayList<QuakeEntry> quakes = filterByPhrase(list, where, phrase);
         for (QuakeEntry element : quakes)
             System.out.println(element);
 
         if (quakes.size() > 0)
-            System.out.println("Found " + quakes.size() + " quakes that match California at " + where);
+            System.out.println("Found " + quakes.size() + " quakes that match " + phrase +" at " + where);
 
     }
 
@@ -167,15 +176,15 @@ public class EarthQuakeClient
         ArrayList<QuakeEntry> list  = parser.read(source);
         System.out.println("read data for "+list.size()+" quakes");
 
-        double magnitude = 5;                                          // Where can I take this number???
-        ArrayList<QuakeEntry> bigQuakes = filterByMagnitude(list,magnitude);
+        ArrayList<QuakeEntry> bigQuakes = filterByMagnitude(list, magnitudeMin);
 
         for (QuakeEntry element: bigQuakes)
         {
-            System.out.println(element);                               // чи правильно виведе element???
+            System.out.println(element);
         }
 
-        System.out.println("Found " + bigQuakes.size() + " quakes that match that criteria");
+        if (bigQuakes.size() > 0)
+            System.out.println("Found " + bigQuakes.size() + " quakes that match that criteria");
     }
 
     public void closeToMe(){
@@ -189,9 +198,9 @@ public class EarthQuakeClient
         //Location city = new Location(35.988, -78.907);
 
         // This location is Bridgeport, CA
-         Location city =  new Location(38.17, -118.82);
+         Location city =  new Location(latitude, longitude);
 
-        ArrayList<QuakeEntry> quakes = filterByDistanceFrom(list, 1000000, city);
+        ArrayList<QuakeEntry> quakes = filterByDistanceFrom(list, distMax, city);
         for (QuakeEntry element: quakes)
         {
             double distance = city.distanceTo(element.getLocation());
