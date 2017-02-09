@@ -14,8 +14,7 @@ public class LargestQuakes
     {
         //EarthQuakeParser xp = new EarthQuakeParser();
         LargestQuakes client = new LargestQuakes();
-        //String source = "data/2.5_week.atom";
-        //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
+
         //String source = "data/nov20quakedatasmall.atom";
         //ArrayList<QuakeEntry> list  = xp.read(source);
         //Location kiev = new Location(36.77, -98.06);
@@ -33,6 +32,8 @@ public class LargestQuakes
         {
             System.out.println(loc);
         }*/
+
+        System.out.print("1");
     }
     public void findLargestQuakes()
     {

@@ -429,10 +429,9 @@ public class Location {
     public float distanceTo(Location dest) {
         // See if we already have the result
         synchronized (mResults) {
-            if (mLatitude != mLat1 || mLongitude != mLon1 ||
-                    dest.mLatitude != mLat2 || dest.mLongitude != mLon2) {
-                computeDistanceAndBearing(mLatitude, mLongitude,
-                        dest.mLatitude, dest.mLongitude, mResults);
+            if (mLatitude != mLat1 || mLongitude != mLon1 || dest.mLatitude != mLat2 || dest.mLongitude != mLon2)
+            {
+                computeDistanceAndBearing(mLatitude, mLongitude, dest.mLatitude, dest.mLongitude, mResults);
                 mLat1 = mLatitude;
                 mLon1 = mLongitude;
                 mLat2 = dest.mLatitude;

@@ -10,8 +10,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-public class EarthQuakeParser {
-    public EarthQuakeParser() {
+public class EarthQuakeParser
+{
+    public EarthQuakeParser()
+    {
         // TODO Auto-generated constructor stub
     }
 
@@ -98,7 +100,8 @@ public class EarthQuakeParser {
         return null;
     }
 
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException{
+    /*public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException
+    {
         EarthQuakeParser xp = new EarthQuakeParser();
         //String source = "data/2.5_week.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
@@ -110,7 +113,7 @@ public class EarthQuakeParser {
         }
         System.out.println("# quakes = "+list.size());
 
-    }
+    }*/
 
 }
 

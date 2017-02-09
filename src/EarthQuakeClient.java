@@ -22,32 +22,7 @@ public class EarthQuakeClient
         // TODO Auto-generated constructor stub
     }
 
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException
-    {
-        //EarthQuakeParser xp = new EarthQuakeParser();
-        EarthQuakeClient client = new EarthQuakeClient();
-        //String source = "data/2.5_week.atom";
-        //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        //String source = "data/nov20quakedatasmall.atom";
-        //ArrayList<QuakeEntry> list  = xp.read(source);
-        //Location kiev = new Location(36.77, -98.06);
 
-        //Collections.sort(list);
-        /*for(QuakeEntry loc : list){
-            System.out.println(loc);
-        }*/
-        //System.out.println("# quakes = "+list.size());
-
-        //ArrayList<QuakeEntry> myList = client.filterByDistanceFrom(list, 20000.0, kiev);
-        client.quakesByPhrase();
-
-        /*for(QuakeEntry loc: list)
-        {
-            System.out.println(loc);
-        }*/
-
-
-    }
 
     public ArrayList<QuakeEntry> filterByMagnitude(ArrayList<QuakeEntry> quakeData, double magMin)
     {
